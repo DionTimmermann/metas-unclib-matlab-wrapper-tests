@@ -90,7 +90,7 @@ function compare_ans_dbl_unc(varargin)
     if isempty(dbl_error) && isempty(unc_error)
         % same error behavior. Test values
         
-        if ndims(dbl_result) ~= ndims(unc_result) || any(size(dbl_result) ~= size(unc_result))
+        if numel(size(dbl_result)) ~= numel(size(unc_result)) || any(size(dbl_result) ~= size(unc_result))
             fprintf('FAILED: different size. Expected %s, but got %s.\n', ...
             strjoin(string(size(dbl_result)), '-by-'), ...
             strjoin(string(size(unc_result)), '-by-'));
