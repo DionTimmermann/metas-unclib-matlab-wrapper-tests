@@ -44,6 +44,8 @@ function compare_a_dbl_unc(varargin)
 % 
 %   2021-05-31  dion.timmermann@ptb.de
 %               * Initial Version
+%   2021-06-03  michael.wollensack@metas.ch
+%               * Different dimensions exception added
 %
 
     global unc;
@@ -88,7 +90,11 @@ function compare_a_dbl_unc(varargin)
     if isempty(dbl_error) && isempty(unc_error)
         % same error behavior. Test values
         
-        if numel(size(dbl_result)) ~= numel(size(unc_result)) || any(size(dbl_result) ~= size(unc_result))
+        if ndims(dbl_result) ~= ndims(unc_result)
+            fprintf('FAILED: different dimensions. Expected %s, but got %s.\n', ...
+            string(ndims(dbl_result)), ...
+            string(ndims(unc_result)));
+        elseif any(size(dbl_result) ~= size(unc_result))
             fprintf('FAILED: different size. Expected %s, but got %s.\n', ...
             strjoin(string(size(dbl_result)), '-by-'), ...
             strjoin(string(size(unc_result)), '-by-'));
