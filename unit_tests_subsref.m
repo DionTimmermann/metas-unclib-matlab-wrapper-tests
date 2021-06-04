@@ -149,7 +149,9 @@ a = zeros(5, 5, 5); a(:) = 0.1*1:0.1:0.1*numel(a); ...
 b = zeros(2, 3, 4); b(:) = 1:numel(b); ...
 a_dbl = double(a);
 a_unc = unc(a);
-if all(a_dbl(b) == double(a_unc(b)), 'all')
+result_dbl = a_dbl(b);
+result_unc = double(a_unc(b));
+if all(result_dbl(:) == result_unc(:))
     fprintf('PASSED: same result.\n');
 else
     fprintf('FAILED!\n');
