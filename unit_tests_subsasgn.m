@@ -15,7 +15,7 @@
 % the testing.
 
 global unc;
-unc = @MCProp;
+unc = @LinProp;
 %% 0. Introduction
 %% 0.1. Simple Tests
 % These tests should not fail
@@ -526,5 +526,31 @@ compare_a_dbl_unc([], rand(4, 4, 4), 'clear a; a(:, 5:9, :) = b;');
 compare_a_dbl_unc([], rand(4, 4, 4), 'clear a; a(5:8, :, :) = b;');
 compare_a_dbl_unc([], rand(4, 4, 4), 'clear a; a(5:9, :, :) = b;');
 
+% Do singleton dimensions in b get copied by colon? (They do not, except the dimensions already match.)
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, :) = b;');
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, :, :) = b;');
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, :, :, :) = b;');
+
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, 1:3) = b;');
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, 1:3, :) = b;');
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, 1, :) = b;');
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, 1, :, :) = b;');
+compare_a_dbl_unc([], rand(1, 3), 'clear a; a(5, 1, :, :, :) = b;');
+
+compare_a_dbl_unc([], rand(3, 1), 'clear a; a(5, :) = b;');
+compare_a_dbl_unc([], rand(3, 1), 'clear a; a(5, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 1), 'clear a; a(5, :, :, :) = b;');
+
+compare_a_dbl_unc([], rand(3, 1, 3), 'clear a; a(5, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 1, 3), 'clear a; a(5, :, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 1, 3), 'clear a; a(5, :, :, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 1, 3), 'clear a; a(5, :, 1, :) = b;');
+
+compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, :, :, :, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :, :, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :, :) = b;');
+compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :) = b;');
+
+% Initialization with empty varaible.
 compare_a_dbl_unc([], 'clear a; a(:) = [];');
 compare_a_dbl_unc([], 'clear a; a(:, :) = [];');
