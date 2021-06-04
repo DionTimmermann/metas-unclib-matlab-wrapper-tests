@@ -442,6 +442,12 @@ compare_a_dbl_unc(magic(3), [], 'a(2:3) = b;');
 compare_a_dbl_unc(rand(3, 5, 7), [], 'a(2:3, :, :) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), [], 'a(:, 2, :) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), [], 'a(4, 2, :) = b;');
+
+compare_a_dbl_unc(magic(3), [], 'a(:) = zeros(0, 0);');                 % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
+compare_a_dbl_unc(magic(3), [], 'a(2:3) = zeros(0, 0);');               % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
+compare_a_dbl_unc(rand(3, 5, 7), [], 'a(2:3, :, :) = zeros(0, 0);');    % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
+compare_a_dbl_unc(rand(2, 3, 4), [], 'a(:, 2, :) = zeros(0, 0);');      % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
+compare_a_dbl_unc(rand(2, 3, 4), [], 'a(4, 2, :) = zeros(0, 0);');      % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
 %% 6. Invalid Parameters
 
 % Empty bracket, caught directly by Matlab.
