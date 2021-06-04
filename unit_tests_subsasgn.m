@@ -35,9 +35,8 @@ compare_a_dbl_unc(zeros(3), ones(3), 'a(:, :) = b;');
 
 compare_a_dbl_unc(zeros(3), 1, 'a(:, :) = b;');
 %% 0.2 Types of Errors in old subsasgn implementation
-% 0.2.1 Assignment of incorrect values
-% Instead of shifiting b from 1-by-3 to 1-by-1-by-3, b(1, 1) is inserted three 
-% times into a(1, 1, 1:3);
+% 0.2.1 Assignment of incorrect values Instead of shifiting b from 1-by-3 to 
+% 1-by-1-by-3, b(1, 1) is inserted three times into a(1, 1, 1:3);
 
 % a = zeros(1, 1, 3); b = [1 2 3];
 compare_a_dbl_unc(zeros(1, 1, 3), [1 2 3], 'a(:, :, :) = b;');
@@ -63,10 +62,8 @@ compare_a_dbl_unc(zeros(3), 1, 'a(2:5) = b;');
 % The old implemation of subsasn also did not respect several sepcial cases, 
 % like logical indexing or the null assignment to remove parts of a matrix.
 %% 1. Scalar Assignment
-% 1.1. Linear Indexing
-% In Matlab, matricies and vectors can be index linearly, i.e. as if they were 
-% a vector. 
-% 1.1.1. Linear Indexing of Vectors
+% 1.1. Linear Indexing In Matlab, matricies and vectors can be index linearly, 
+% i.e. as if they were a vector. 1.1.1. Linear Indexing of Vectors
 
 % Automatic size
 compare_a_dbl_unc(zeros(1, 3), 1, 'a(:) = b;');
@@ -164,8 +161,7 @@ compare_a_dbl_unc(zeros(3, 3, 3, 3), 1, 'a(:, :, 11:12) = b;');
 compare_a_dbl_unc(zeros(3, 3, 3, 3), 1, 'a(:, :, 10) = b;');
 compare_a_dbl_unc(zeros(3, 3, 3, 3), 1, 'a(:, :, 12) = b;');
 %% 2. Matrix Assignment
-% 2.1. Linear Indexing 
-% 2.1.1 Linear Indexing of Vectors
+% 2.1. Linear Indexing 2.1.1 Linear Indexing of Vectors
 
 % Automatic size
 compare_a_dbl_unc(zeros(1, 3), [1, 2, 3], 'a(:) = b;');
@@ -324,18 +320,18 @@ compare_a_dbl_unc(zeros(3, 3), [1; 2; 3], 'a(5, :) = b;');
 % eval()...
 
 % Row vector in row of matrix
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(1, :) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(2, :) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(3, :) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(4, :) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(5, :) = b;');
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(1, :) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(2, :) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(3, :) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(4, :) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(5, :) = b;');   % Different error messages accepted for now
 
 % Column vector in column of matrix
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 1) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 2) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 3) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 4) = b;');
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 5) = b;');
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 1) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 2) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 3) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 4) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 5) = b;');   % Different error messages accepted for now
 
 % Row vector in column of matrix
 compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(:, 1) = b;');
@@ -457,7 +453,7 @@ compare_a_dbl_unc(rand(1, 100), 3, 'a(''d'') = b;');
 compare_a_dbl_unc(rand(2, 3, 4), 3, 'a(2.3) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), 3, 'a(-4) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), 3, 'a(0) = b;');
-compare_a_dbl_unc(rand(2, 3, 4), rand(3, 4), 'a(2, 1.1:3.1, :) = b;');
+compare_a_dbl_unc(rand(2, 3, 4), rand(3, 4), 'a(2, 1.1:3.1, :) = b;');  % double throws a warning, unc an error. This difference is accepted.
 %% 7. Initialization
 
 compare_a_dbl_unc([], 3, 'clear a; a(5) = b;');
@@ -497,7 +493,7 @@ compare_a_dbl_unc([], magic(3), 'clear a; a(1:9) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(1:3, 1:3) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(1:3, 1:3, 1) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(1:3, 1:3, 5) = b;');
-compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:9) = b;');
+compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:9) = b;');    % Different error messages accepted for now.
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3, 1) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3, 5) = b;');
@@ -505,7 +501,7 @@ compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3, 5) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(:) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(:, :) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(:, :, :) = b;');
-compare_a_dbl_unc([], magic(3), 'clear a; a(5, :) = b;');
+compare_a_dbl_unc([], magic(3), 'clear a; a(5, :) = b;');    % Different error messages accepted for now.
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, :, :) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, :, :, :) = b;');
 
