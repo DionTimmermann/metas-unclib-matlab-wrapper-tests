@@ -110,7 +110,7 @@ function compare_a_dbl_unc(varargin)
         if strcmp(dbl_error.message, unc_error.message)
             fprintf('PASSED: same error message.\n');
         else
-            fprintf('FAILED: different error messages. Expected ''%s'', but got ''%s''.\n', dbl_error.message, unc_error.message);
+            fprintf('WARNING: different error messages. Expected ''%s'', but got ''%s''.\n', dbl_error.message, unc_error.message);
         end
         
         
