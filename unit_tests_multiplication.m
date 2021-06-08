@@ -36,7 +36,7 @@ compare_a_dbl_unc(rand(1, 4), rand(3, 1), 'a=a.*b;');
 compare_a_dbl_unc(rand(4, 1), rand(1, 3), 'a=a.*b;');
 compare_a_dbl_unc(rand(4, 1), rand(3, 1), 'a=a.*b;');
 
-%% 1. * multiplication (mtimes)
+%% 2. * multiplication (mtimes)
 % Scalar/Vector Multiplication
 compare_a_dbl_unc(3, rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(1, 3), 3, 'a=a*b;');
