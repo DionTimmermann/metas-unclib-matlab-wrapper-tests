@@ -27,6 +27,9 @@ compare_ans_dbl_unc(rand(1, 3), 'diff(a)');
 compare_ans_dbl_unc(rand(3, 1), 'diff(a)');
 compare_ans_dbl_unc(rand(3, 3), 'diff(a)');
 compare_ans_dbl_unc(rand(3, 3, 3), 'diff(a)');
+
+compare_ans_dbl_unc(rand(1, 1, 3, 1), 'diff(a)');
+compare_ans_dbl_unc(rand(1, 1, 1, 1), 'diff(a)');
 %% 2. Two Inputs
 
 % Input validation
@@ -54,19 +57,19 @@ compare_ans_dbl_unc(rand(3, 1), 'diff(a, 2)');
 compare_ans_dbl_unc(rand(3, 3), 'diff(a, 2)');
 compare_ans_dbl_unc(rand(3, 3, 3), 'diff(a, 2)');
 
-compare_ans_dbl_unc([], 3, 'diff(a, 3)');
-compare_ans_dbl_unc(rand(1), 3, 'diff(a, 3)');
-compare_ans_dbl_unc(rand(1, 3), 3, 'diff(a, 3)');
-compare_ans_dbl_unc(rand(3, 1), 3, 'diff(a, 3)');
-compare_ans_dbl_unc(rand(3, 3), 3, 'diff(a, 3)');
-compare_ans_dbl_unc(rand(3, 3, 3), 3, 'diff(a, 3)');
+compare_ans_dbl_unc([], 'diff(a, 3)');
+compare_ans_dbl_unc(rand(1), 'diff(a, 3)');
+compare_ans_dbl_unc(rand(1, 3), 'diff(a, 3)');
+compare_ans_dbl_unc(rand(3, 1), 'diff(a, 3)');
+compare_ans_dbl_unc(rand(3, 3), 'diff(a, 3)');
+compare_ans_dbl_unc(rand(3, 3, 3), 'diff(a, 3)');
 
-compare_ans_dbl_unc([], 4, 'diff(a, 4)');
-compare_ans_dbl_unc(rand(1), 4, 'diff(a, 4)');
-compare_ans_dbl_unc(rand(1, 3), 4, 'diff(a, 4)');
-compare_ans_dbl_unc(rand(3, 1), 4, 'diff(a, 4)');
-compare_ans_dbl_unc(rand(3, 3), 4, 'diff(a, 4)');
-compare_ans_dbl_unc(rand(3, 3, 3), 4, 'diff(a, 4)');
+compare_ans_dbl_unc([], 'diff(a, 4)');
+compare_ans_dbl_unc(rand(1), 'diff(a, 4)');
+compare_ans_dbl_unc(rand(1, 3), 'diff(a, 4)');
+compare_ans_dbl_unc(rand(3, 1), 'diff(a, 4)');
+compare_ans_dbl_unc(rand(3, 3), 'diff(a, 4)');
+compare_ans_dbl_unc(rand(3, 3, 3), 'diff(a, 4)');
 %% 3. Three Inputs
 
 % Input validation
@@ -101,3 +104,5 @@ compare_ans_dbl_unc(rand(3, 1), 'diff(a, [], 3)');
 compare_ans_dbl_unc(rand(3, 3), 'diff(a, [], 3)');
 compare_ans_dbl_unc(rand(3, 3, 3), 'diff(a, [], 3)');
 compare_ans_dbl_unc(rand(3, 3, 3), 'diff(a, [], 4)');
+
+compare_ans_dbl_unc(rand(3, 2, 3), 'diff(a, 5, 2)');
