@@ -16,7 +16,7 @@
 % the testing.
 
 global unc;
-unc = @MCProp;
+unc = @LinProp;
 %% 0. Introduction
 %% 0.1. Simple Tests
 % These tests should not fail
@@ -124,6 +124,11 @@ compare_ans_dbl_unc(rand(4, 5, 6), 'a(3, 6:7)');
 compare_ans_dbl_unc(rand(4, 5, 6), 'a(:, 6:7)');
 
 compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a(1, :, :, 1, 1)');
+
+compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([])');
+compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [])');
+compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [], [])');
+compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [], :)');
 %% 3. Addressing more dimensions than exist
 
 compare_ans_dbl_unc([], 'a(4)');
@@ -135,6 +140,15 @@ compare_ans_dbl_unc(rand(), 'a(2, 1)');
 compare_ans_dbl_unc(rand(1, 3), 'a(:, :, :)');
 compare_ans_dbl_unc(rand(3, 1), 'a(:, :, :)');
 compare_ans_dbl_unc(rand(4, 5, 6), 'a(3, 3, 3, 3)');
+
+
+compare_ans_dbl_unc(rand(1, 3), 'a(:, :, :, :, :)');
+compare_ans_dbl_unc(rand(3, 1), 'a(:, :, :, 1, :)');
+
+
+compare_ans_dbl_unc(rand(3, 1), 'a(:, :, :, [], :)');
+compare_ans_dbl_unc(rand(3, 1), 'a(:, :, :, [], [])');
+compare_ans_dbl_unc(rand(3, 1), 'a([], :, :, [], :)');
 %% 4. Linear Indexing with a Matrix
 % This is a very special case
 
@@ -195,3 +209,14 @@ compare_ans_dbl_unc(rand(2, 3, 4), 'a(2.3)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(-4)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(0)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(2, 1.1:3.1, :)');  % double throws a warning, unc an error. This difference is accepted.
+%% 7. Empty results
+
+compare_ans_dbl_unc(rand(2, 3, 4), 'a()');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([])');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([], [])');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([], [], [])');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([], [], [], [])');
+
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], [])');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], [], [])');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], :, [])');
