@@ -560,3 +560,8 @@ compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :) = b;');
 % Initialization with empty varaible.
 compare_a_dbl_unc([], 'clear a; a(:) = [];');
 compare_a_dbl_unc([], 'clear a; a(:, :) = [];');
+
+%% 7. Bugs in 2.4.8
+
+compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a(:, 1) = b;');
+compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a(:, 1) = b(:);');
