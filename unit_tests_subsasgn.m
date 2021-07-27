@@ -567,3 +567,6 @@ compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a(:, 1) = b(:);');
 
 % Not sure if the following is really relevant...
 compare_a_dbl_unc(rand(3, 1, 1), rand(), 'reshape(a, [3 1 1]); a(1, 1, 1) = b;');
+
+% Different datatypes in the indexes cause an error (issue #12).
+compare_a_dbl_unc(rand(3, 3), rand(3, 1), 'a(:, uint32(1)) = b;');
