@@ -220,3 +220,8 @@ compare_ans_dbl_unc(rand(2, 3, 4), 'a([], [], [], [])');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], [])');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], [], [])');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], :, [])');
+
+%% 8. Bugs in 2.4.8
+
+compare_ans_dbl_unc(rand(), 'a(1, 1)');
+compare_ans_dbl_unc(rand(), 'a(1, 1, 1)');
