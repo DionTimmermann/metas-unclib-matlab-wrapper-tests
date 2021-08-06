@@ -1,9 +1,9 @@
 function compare_a_dbl_unc(varargin)
-%   compare_a_dbl_unc(a, command)           or 
-%   compare_a_dbl_unc(a, b, command)        or 
-%   compare_a_dbl_unc(a, b, c, command)     or 
-%   compare_a_dbl_unc(a, b, c, d, command)  or 
-%   compare_a_dbl_unc(a, b, c, d, e, command)
+%   compare_a_dbl_unc(a, command, ['Accept', errorType])                or 
+%   compare_a_dbl_unc(a, b, command, ['Accept', errorType])             or 
+%   compare_a_dbl_unc(a, b, c, command, ['Accept', errorType])          or 
+%   compare_a_dbl_unc(a, b, c, d, command, ['Accept', errorType])       or 
+%   compare_a_dbl_unc(a, b, c, d, e, command, ['Accept', errorType])
 %   
 %   Compares `a` after executing `command` when using double variables
 %   and unc variables from the uncLib by METAS. The first 1 to 5 arguments 
@@ -40,6 +40,16 @@ function compare_a_dbl_unc(varargin)
 %   before its values are passed to `compare_a_dbl_unc`, both the double
 %   and the unc variable will have the same value.
 %
+%   If the optinal parameter 'Accept' is passed, a specific type of error
+%   can be marked as accepted. Possible error types are
+%       differentDimensions     results have different ndims()
+%       differentSizes          results have different size()
+%       differentResults        results are not identical, when cast to
+%                               double
+%       differentErrors         the error messages returned are different
+%       doubleError             only double throws an error
+%       uncError                only unc throws an error
+%
 %   See also: compare_ans_dbl_unc
 % 
 %   2021-05-31  dion.timmermann@ptb.de
@@ -49,10 +59,25 @@ function compare_a_dbl_unc(varargin)
 %
 
     global unc;
+    global automatedUnc;
+    global automatedTestScript;
     
-    if nargin < 2
+    callStack = dbstack;
+    if strcmp(callStack(end).name, automatedTestScript)
+        useUnc = automatedUnc;
+    else
+        useUnc = unc;
+    end
+    
+    accept = [];
+    if ischar(varargin{end-1}) && strcmp(varargin{end-1}, 'Accept')
+        accept = varargin{end};
+        varargin(end-1:end) = [];
+    end
+    
+    if numel(varargin)  < 2
         error('Must pass at least a command and one variable.');
-    elseif nargin > 5+1
+    elseif numel(varargin) > 5+1
         error('Must pass at most 5 varaibles.');
     end
     if ~char(varargin{end})
@@ -66,59 +91,29 @@ function compare_a_dbl_unc(varargin)
     variables = varargin(1:end-1);
     variableNames = {'a', 'b', 'c', 'd', 'e'};
     
-    dbl_error = [];
+    data = struct();
+    
+    data.dbl_error = [];
     cellfun(@(v, n) assignin('caller', n, double(v)), variables, variableNames(1:length(variables)));
     
     try
         eval(command);
-        dbl_result = a;
+        data.dbl_result = a;
     catch e
-        dbl_error = e;
+        data.dbl_error = e;
     end
     
-    cellfun(@(v, n) assignin('caller', n, unc(v)), variables, variableNames(1:length(variables)));
-    unc_error = [];
+    cellfun(@(v, n) assignin('caller', n, useUnc(v)), variables, variableNames(1:length(variables)));
+    data.unc_error = [];
     
     try
         eval(command);
-        unc_result = a;
+        data.unc_result = a;
     catch e
-        unc_error = e;
+        data.unc_error = e;
     end
     
     
-    if isempty(dbl_error) && isempty(unc_error)
-        % same error behavior. Test values
-        
-        if ndims(dbl_result) ~= ndims(unc_result)
-            fprintf('FAILED: different dimensions. Expected %i, but got %i. Size was expected to be %s instead of %s. \n', ...
-            ndims(dbl_result), ...
-            ndims(unc_result), ...
-            strjoin(string(size(dbl_result)), '-by-'), ...
-            strjoin(string(size(unc_result)), '-by-'));
-        elseif any(size(dbl_result) ~= size(unc_result))
-            fprintf('FAILED: different size. Expected %s, but got %s.\n', ...
-            strjoin(string(size(dbl_result)), '-by-'), ...
-            strjoin(string(size(unc_result)), '-by-'));
-        elseif any(dbl_result ~= double(unc_result))
-            fprintf('FAILED: different results.\n');
-        else
-            fprintf('PASSED: same result.\n');
-        end
-        
-    elseif ~isempty(dbl_error) && ~isempty(unc_error)
-        % same error behavior. Test Errors
-        
-        if strcmp(dbl_error.message, unc_error.message)
-            fprintf('PASSED: same error message.\n');
-        else
-            fprintf('WARNING: different error messages. Expected ''%s'', but got ''%s''.\n', dbl_error.message, unc_error.message);
-        end
-        
-        
-    elseif ~isempty(dbl_error) && isempty(unc_error)
-        fprintf('FAILED: only double caused an error. (%s)\n', dbl_error.message);
-    else
-        fprintf('FAILED: only unc caused an error. (%s)\n', unc_error.message);
-    end
+    log_dbl_unc_difference(data, accept, useUnc);
+    
 end

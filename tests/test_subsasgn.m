@@ -320,18 +320,18 @@ compare_a_dbl_unc(zeros(3, 3), [1; 2; 3], 'a(5, :) = b;');
 % eval()...
 
 % Row vector in row of matrix
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(1, :) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(2, :) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(3, :) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(4, :) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(5, :) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(1, :) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(2, :) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(3, :) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(4, :) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(5, :) = b;', 'Accept', 'differentErrors');
 
 % Column vector in column of matrix
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 1) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 2) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 3) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 4) = b;');   % Different error messages accepted for now
-compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 5) = b;');   % Different error messages accepted for now
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 1) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 2) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 3) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 4) = b;', 'Accept', 'differentErrors');
+compare_a_dbl_unc(zeros(3, 3), [1; 2; 3; 4], 'a(:, 5) = b;', 'Accept', 'differentErrors');
 
 % Row vector in column of matrix
 compare_a_dbl_unc(zeros(3, 3), [1, 2, 3, 4], 'a(:, 1) = b;');
@@ -443,11 +443,11 @@ compare_a_dbl_unc(rand(3, 5, 7), [], 'a(2:3, :, :) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), [], 'a(:, 2, :) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), [], 'a(4, 2, :) = b;');
 
-compare_a_dbl_unc(magic(3), [], 'a(:) = zeros(0, 0);');                 % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
-compare_a_dbl_unc(magic(3), [], 'a(2:3) = zeros(0, 0);');               % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
-compare_a_dbl_unc(rand(3, 5, 7), [], 'a(2:3, :, :) = zeros(0, 0);');    % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
-compare_a_dbl_unc(rand(2, 3, 4), [], 'a(:, 2, :) = zeros(0, 0);');      % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
-compare_a_dbl_unc(rand(2, 3, 4), [], 'a(4, 2, :) = zeros(0, 0);');      % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behaviorcannot be resolved.
+compare_a_dbl_unc(magic(3), [], 'a(:) = zeros(0, 0);', 'Accept', 'doubleError');                 % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
+compare_a_dbl_unc(magic(3), [], 'a(2:3) = zeros(0, 0);', 'Accept', 'doubleError');               % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
+compare_a_dbl_unc(rand(3, 5, 7), [], 'a(2:3, :, :) = zeros(0, 0);', 'Accept', 'doubleError');    % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
+compare_a_dbl_unc(rand(2, 3, 4), [], 'a(:, 2, :) = zeros(0, 0);', 'Accept', 'doubleError');      % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
+compare_a_dbl_unc(rand(2, 3, 4), [], 'a(4, 2, :) = zeros(0, 0);', 'Accept', 'differentErrors');      % subsasgn implemented in matlab cannot distinguis between [] and an empty double. This difference in behavior cannot be resolved.
 %% 6. Invalid Parameters
 
 % Empty bracket, caught directly by Matlab.
@@ -459,7 +459,7 @@ compare_a_dbl_unc(rand(1, 100), 3, 'a(''d'') = b;');
 compare_a_dbl_unc(rand(2, 3, 4), 3, 'a(2.3) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), 3, 'a(-4) = b;');
 compare_a_dbl_unc(rand(2, 3, 4), 3, 'a(0) = b;');
-compare_a_dbl_unc(rand(2, 3, 4), rand(3, 4), 'a(2, 1.1:3.1, :) = b;');  % double throws a warning, unc an error. This difference is accepted.
+compare_a_dbl_unc(rand(2, 3, 4), rand(3, 4), 'a(2, 1.1:3.1, :) = b;', 'Accept', 'uncError');  % double throws a warning, unc an error. This difference is accepted.
 %% 7. Initialization
 
 compare_a_dbl_unc([], 3, 'clear a; a(5) = b;');
@@ -499,7 +499,7 @@ compare_a_dbl_unc([], magic(3), 'clear a; a(1:9) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(1:3, 1:3) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(1:3, 1:3, 1) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(1:3, 1:3, 5) = b;');
-compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:9) = b;');    % Different error messages accepted for now.
+compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:9) = b;', 'Accept', 'differentErrors');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3, 1) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3, 5) = b;');
@@ -507,7 +507,7 @@ compare_a_dbl_unc([], magic(3), 'clear a; a(5, 1:3, 1:3, 5) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(:) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(:, :) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(:, :, :) = b;');
-compare_a_dbl_unc([], magic(3), 'clear a; a(5, :) = b;');    % Different error messages accepted for now.
+compare_a_dbl_unc([], magic(3), 'clear a; a(5, :) = b;', 'Accept', 'differentErrors');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, :, :) = b;');
 compare_a_dbl_unc([], magic(3), 'clear a; a(5, :, :, :) = b;');
 

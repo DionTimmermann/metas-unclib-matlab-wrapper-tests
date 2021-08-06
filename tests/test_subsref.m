@@ -183,7 +183,7 @@ compare_ans_dbl_unc([1 5 2 4 3]', 'a(logical([0 1 1 0 0]''))');
 
 compare_ans_dbl_unc([1 5 2 4 3], 'a(logical([0 1 1 0]))');
 compare_ans_dbl_unc([1 5 2 4 3], 'a(logical([0 1 1 0 0 0]))');
-compare_ans_dbl_unc([1 5 2 4 3], 'a(logical([1 1 1 1 1 1]))'); % Different error messages accepted for now.
+compare_ans_dbl_unc([1 5 2 4 3], 'a(logical([1 1 1 1 1 1]))', 'Accept', 'differentErrors'); % Different error messages accepted for now.
 
 compare_ans_dbl_unc(rand(3, 1), 'a(a>0.5)');
 compare_ans_dbl_unc(magic(3), 'a(a>3)');
@@ -208,7 +208,7 @@ compare_ans_dbl_unc(rand(1, 100), 'a(''d'')');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(2.3)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(-4)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(0)');
-compare_ans_dbl_unc(rand(2, 3, 4), 'a(2, 1.1:3.1, :)');  % double throws a warning, unc an error. This difference is accepted.
+compare_ans_dbl_unc(rand(2, 3, 4), 'a(2, 1.1:3.1, :)', 'Accept', 'uncError');  % double throws a warning, unc an error. This difference is accepted.
 %% 7. Empty results
 
 compare_ans_dbl_unc(rand(2, 3, 4), 'a()');
