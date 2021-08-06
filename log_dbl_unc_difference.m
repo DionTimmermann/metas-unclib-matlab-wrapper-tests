@@ -71,10 +71,17 @@ function log_dbl_unc_difference(data, accept, uncType)
         output = true;
         output_msg = sprintf('ATTENTION: An error (%s) was accepted, but a different error occured.\nFAILED: %s\n', accept, result_msg);
     else
-        type = 'failed';
-        warn = true;
-        output = true;
-        output_msg = sprintf('FAILED: %s\n', result_msg);
+        if strcmp(result, 'differentErrors')
+            type = 'warning';
+            warn = true;
+            output = true;
+            output_msg = sprintf('WARNING: %s\n', result_msg);
+        else
+            type = 'failed';
+            warn = true;
+            output = true;
+            output_msg = sprintf('FAILED: %s\n', result_msg);
+        end
     end
     
     if warn
