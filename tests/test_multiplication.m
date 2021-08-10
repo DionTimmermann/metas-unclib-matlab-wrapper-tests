@@ -33,10 +33,16 @@ compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a.*b;');
 compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a.*b;');
 
 % Vector/Vector Multiplication (Incorrect number of elements)
-compare_a_dbl_unc(rand(1, 4), rand(1, 3), 'a=a.*b;');
+
+if verLessThan('matlab', '9.9') % Some error messages were changed. The exact version number is just a guess.
+    accept = 'differentErrors';
+else
+    accept = [];
+end
+compare_a_dbl_unc(rand(1, 4), rand(1, 3), 'a=a.*b;', 'Accept', accept);
 compare_a_dbl_unc(rand(1, 4), rand(3, 1), 'a=a.*b;');
 compare_a_dbl_unc(rand(4, 1), rand(1, 3), 'a=a.*b;');
-compare_a_dbl_unc(rand(4, 1), rand(3, 1), 'a=a.*b;');
+compare_a_dbl_unc(rand(4, 1), rand(3, 1), 'a=a.*b;', 'Accept', accept);
 %% 2. * multiplication (mtimes)
 % 2.1. Multiplication of a Scalar and a Vector
 
@@ -62,24 +68,29 @@ compare_a_dbl_unc(rand(3, 1), 3+4j, 'a=a*b;');
 % Vector/Vector Multiplication
 compare_a_dbl_unc(rand(1, 3), rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a*b;');
-compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=a*b;');
+compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
 compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a*b;');
 
 % Complex Vector/Vector Multiplication
 compare_a_dbl_unc(rand(1, 3)+1j*rand(1, 3), rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(3, 1)+1j*rand(3, 1), rand(1, 3), 'a=a*b;');
-compare_a_dbl_unc(rand(1, 3)+1j*rand(1, 3), rand(3, 1), 'a=a*b;');
+compare_a_dbl_unc(rand(1, 3)+1j*rand(1, 3), rand(3, 1), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
 compare_a_dbl_unc(rand(3, 1)+1j*rand(3, 1), rand(3, 1), 'a=a*b;');
 
 % Vector/Complex Vector Multiplication
 compare_a_dbl_unc(rand(1, 3), rand(1, 3)+1j*rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(3, 1), rand(1, 3)+1j*rand(1, 3), 'a=a*b;');
-compare_a_dbl_unc(rand(1, 3), rand(3, 1)+1j*rand(3, 1), 'a=a*b;');
+compare_a_dbl_unc(rand(1, 3), rand(3, 1)+1j*rand(3, 1), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
 compare_a_dbl_unc(rand(3, 1), rand(3, 1)+1j*rand(3, 1), 'a=a*b;');
 
 % 2.2. Multiplication of a Matricies with more than 2 dimensions
 
 % Three-dimensional mutiplication
-compare_a_dbl_unc(rand(3, 3, 3), rand(3, 3, 3), 'a=a*b;');
+if verLessThan('matlab', '9.9')
+    accept = [];
+else
+    accept = 'differentErrors';
+end
+compare_a_dbl_unc(rand(3, 3, 3), rand(3, 3, 3), 'a=a*b;', 'Accept', accept); % Hint to PAGEMTIMES was introduced in 2020b and is currently not applicable to *Prop.
 %% 
 %

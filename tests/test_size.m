@@ -16,6 +16,17 @@
 
 global unc;
 unc = @LinProp;
+
+% The Behaviour of MATLAB changed in version 9.7 (2019b), thus we accept
+% different errors.
+if verLessThan('matlab', '9.7')
+    acceptDoubleError = 'doubleError';
+    acceptDifferentErrors = 'differentErrors';
+else
+    acceptDoubleError = [];
+    acceptDifferentErrors = [];
+end
+
 %% 1. No Dimensional arguments
 
 % The following code compares the value of ans after
@@ -37,15 +48,15 @@ compare_ans_dbl_unc(rand(5, 1, 1, 1), 'size(a)');
 compare_ans_dbl_unc(rand(5, 1, 1, 1, 5), 'size(a)');
 %% 2. dim Vector
 
-compare_ans_dbl_unc(rand(1, 3), 'size(a, [1 2])');
-compare_ans_dbl_unc(rand(1, 3), 'size(a, [1 3])');
-compare_ans_dbl_unc(rand(1, 3), 'size(a, [3 1])');
-compare_ans_dbl_unc(rand(1, 3), 'size(a, [3;1])');
+compare_ans_dbl_unc(rand(1, 3), 'size(a, [1 2])', 'Accept', acceptDoubleError);
+compare_ans_dbl_unc(rand(1, 3), 'size(a, [1 3])', 'Accept', acceptDoubleError);
+compare_ans_dbl_unc(rand(1, 3), 'size(a, [3 1])', 'Accept', acceptDoubleError);
+compare_ans_dbl_unc(rand(1, 3), 'size(a, [3;1])', 'Accept', acceptDoubleError);
 %% 3. nargout Vector and dim Vector
 
-compare_ans_dbl_unc(rand(2, 3, 4), '[ans, ~] = size(a, [1 2]);');
-compare_ans_dbl_unc(rand(2, 3, 4), '[~, ans, ~] = size(a, [1 2]);');
-compare_ans_dbl_unc(rand(2, 3, 4), '[~, ans, ~] = size(a, [1 2, 5, 7]);');
+compare_ans_dbl_unc(rand(2, 3, 4), '[ans, ~] = size(a, [1 2]);', 'Accept', acceptDoubleError);
+compare_ans_dbl_unc(rand(2, 3, 4), '[~, ans, ~] = size(a, [1 2]);', 'Accept', acceptDifferentErrors);
+compare_ans_dbl_unc(rand(2, 3, 4), '[~, ans, ~] = size(a, [1 2, 5, 7]);', 'Accept', acceptDifferentErrors);
 %% 4. nargout Vector
 
 compare_ans_dbl_unc(rand(2, 3, 4, 5, 6), '[~, ans] = size(a);');
@@ -54,10 +65,10 @@ compare_ans_dbl_unc(rand(2), '[~, ans] = size(a);');
 compare_ans_dbl_unc(rand(2), '[~, ~, ans] = size(a);');
 %% 3. varargin and illegal dimensions
 
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, 2);');
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, 2, 3, 4);');
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, [2, 3, 4]);');
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, {2});');
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 0);');
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, -1);');
-compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1.1);');
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, 2);', 'Accept', acceptDoubleError);
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, 2, 3, 4);', 'Accept', acceptDoubleError);
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, [2, 3, 4]);', 'Accept', acceptDifferentErrors);
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1, {2});', 'Accept', acceptDifferentErrors);
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 0);', 'Accept', acceptDifferentErrors);
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, -1);', 'Accept', acceptDifferentErrors);
+compare_ans_dbl_unc(rand(2, 3, 4), 'size(a, 1.1);', 'Accept', acceptDifferentErrors);
