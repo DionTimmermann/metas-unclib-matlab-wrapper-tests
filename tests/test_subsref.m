@@ -17,6 +17,14 @@
 
 global unc;
 unc = @LinProp;
+
+% Flag to account for some error messages becomming more specific over time. 
+if verLessThan('matlab', '9.9') % The exact version number is just a guess.
+    accept = 'differentErrors';
+else
+    accept = [];
+end
+
 %% 0. Introduction
 %% 0.1. Simple Tests
 % These tests should not fail
@@ -52,9 +60,9 @@ compare_ans_dbl_unc(rand(1, 5), 'a((1:5))');
 compare_ans_dbl_unc(rand(5, 1), 'a((1:5)'')');
 compare_ans_dbl_unc(rand(1, 5), 'a((1:5)'')');
 
-compare_ans_dbl_unc(rand(5, 1), 'a([2 4 6])');
-compare_ans_dbl_unc(rand(5, 1), 'a([2 4 6 8])');
-compare_ans_dbl_unc(rand(5, 1), 'a(10)');
+compare_ans_dbl_unc(rand(5, 1), 'a([2 4 6])', 'Accept', accept);
+compare_ans_dbl_unc(rand(5, 1), 'a([2 4 6 8])', 'Accept', accept);
+compare_ans_dbl_unc(rand(5, 1), 'a(10)', 'Accept', accept);
 compare_ans_dbl_unc(rand(5, 1), 'a(10, 1)');
 
 compare_ans_dbl_unc(rand(5, 1), 'a([2 3 5 2 3 1 2 3 2])');
@@ -101,16 +109,16 @@ compare_ans_dbl_unc(rand(4, 5), 'a(4:6)');
 compare_ans_dbl_unc(rand(4, 5), 'a(4:8)');
 compare_ans_dbl_unc(rand(4, 5), 'a(4:12)');
 compare_ans_dbl_unc(rand(4, 5), 'a(1:20)');
-compare_ans_dbl_unc(rand(4, 5), 'a(1:21)');
-compare_ans_dbl_unc(rand(4, 5), 'a(21:23)');
+compare_ans_dbl_unc(rand(4, 5), 'a(1:21)', 'Accept', accept);
+compare_ans_dbl_unc(rand(4, 5), 'a(21:23)', 'Accept', accept);
 compare_ans_dbl_unc(rand(4, 5), 'a(3)');
-compare_ans_dbl_unc(rand(4, 5), 'a(23)');
+compare_ans_dbl_unc(rand(4, 5), 'a(23)', 'Accept', accept);
 
 compare_ans_dbl_unc(rand(4, 5), 'a([1 3 3 4 1])');
 compare_ans_dbl_unc(rand(4, 5), 'a([1 3 3 4 1 6 8])');
 compare_ans_dbl_unc(rand(4, 5), 'a([1; 3; 3; 4; 1])');
 compare_ans_dbl_unc(rand(4, 5), 'a([1; 3; 3; 4; 1; 6; 8])');
-compare_ans_dbl_unc(rand(4, 5), 'a([1 3 3 4 1 6 8 30 4])');
+compare_ans_dbl_unc(rand(4, 5), 'a([1 3 3 4 1 6 8 30 4])', 'Accept', accept);
 %% 
 % Matricies with more than 2 dimensions.
 
@@ -131,7 +139,7 @@ compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [], [])');
 compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [], :)');
 %% 3. Addressing more dimensions than exist
 
-compare_ans_dbl_unc([], 'a(4)');
+compare_ans_dbl_unc([], 'a(4)', 'Accept', accept);
 compare_ans_dbl_unc([], 'a(:)');
 compare_ans_dbl_unc(rand(), 'a(1, :)');
 compare_ans_dbl_unc(rand(), 'a(1, 1)');
@@ -203,7 +211,7 @@ compare_ans_dbl_unc(rand(2, 3, 4), 'a(:, , :)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(:, :, )');
 
 % Incorrect indices
-compare_ans_dbl_unc(rand(2, 3, 4), 'a(''d'')');
+compare_ans_dbl_unc(rand(2, 3, 4), 'a(''d'')', 'Accept', accept);
 compare_ans_dbl_unc(rand(1, 100), 'a(''d'')');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(2.3)');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a(-4)');

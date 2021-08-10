@@ -1,3 +1,4 @@
 *.asv
 tests/*.asv
 *.xlsx
+reports/*.xlsx
