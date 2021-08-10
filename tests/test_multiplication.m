@@ -69,18 +69,21 @@ compare_a_dbl_unc(rand(3, 1), 3+4j, 'a=a*b;');
 compare_a_dbl_unc(rand(1, 3), rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
+compare_a_dbl_unc(rand(2, 3), rand(3, 4), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
 compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a*b;');
 
 % Complex Vector/Vector Multiplication
 compare_a_dbl_unc(rand(1, 3)+1j*rand(1, 3), rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(3, 1)+1j*rand(3, 1), rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(1, 3)+1j*rand(1, 3), rand(3, 1), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
+compare_a_dbl_unc(rand(2, 3)+1j*rand(2, 3), rand(3, 4), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
 compare_a_dbl_unc(rand(3, 1)+1j*rand(3, 1), rand(3, 1), 'a=a*b;');
 
 % Vector/Complex Vector Multiplication
 compare_a_dbl_unc(rand(1, 3), rand(1, 3)+1j*rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(3, 1), rand(1, 3)+1j*rand(1, 3), 'a=a*b;');
 compare_a_dbl_unc(rand(1, 3), rand(3, 1)+1j*rand(3, 1), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
+compare_a_dbl_unc(rand(2, 3), rand(3, 4)+1j*rand(3, 4), 'a=round(double(a*b), 10);'); % This operation causes slightly different results due to the order of operations.
 compare_a_dbl_unc(rand(3, 1), rand(3, 1)+1j*rand(3, 1), 'a=a*b;');
 
 % 2.2. Multiplication of a Matricies with more than 2 dimensions
