@@ -85,7 +85,7 @@ function no_side_effects_unc(varargin)
     if ~isempty(unc_error)
         type = 'failed';
         result = 'uncError';
-        output_msg = sprintf('FAILED: error message was: %s\n', data.unc_error.message);
+        output_msg = sprintf('FAILED: error message was: %s\n', unc_error.message);
     else
         % Check dims
         for ii = 1:length(variables)
