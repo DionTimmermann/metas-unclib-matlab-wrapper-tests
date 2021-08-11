@@ -23,3 +23,7 @@ unc = @LinProp;
 compare_ans_dbl_unc(rand(), 'repmat(a, 2, 2)');
 compare_ans_dbl_unc(rand(), 'repmat(a, 2, 2, 2)');
 compare_ans_dbl_unc(rand(), 'repmat(a, 2, 2, 2, 2)');
+
+compare_ans_dbl_unc(rand(2, 3), 'repmat(a, 2, 3)');
+compare_ans_dbl_unc(rand(2, 3), 'repmat(a, 2, 3, 4)');
+compare_ans_dbl_unc(rand(2, 3), 'repmat(a, 2, 3, 4, 5)');
