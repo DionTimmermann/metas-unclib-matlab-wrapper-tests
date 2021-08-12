@@ -45,6 +45,12 @@ function no_side_effects_unc(varargin)
         useUnc = unc;
     end
     
+    % Some functions might want to use unc, thus we need to save the
+    % correct value but buffer the old one. (We do not want to mess with a
+    % the global variable.)
+    oldUnc = unc;
+    unc = useUnc;
+    
     accept = [];
     if ischar(varargin{end-1}) && strcmp(varargin{end-1}, 'Accept')
         accept = varargin{end};
@@ -167,5 +173,7 @@ function no_side_effects_unc(varargin)
     end
     
     log_test_result(type, result, output_msg, char(useUnc), 3);
+    
+    unc = oldUnc;
     
 end

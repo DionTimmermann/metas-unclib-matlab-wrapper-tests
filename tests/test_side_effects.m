@@ -38,5 +38,5 @@ no_side_effects_unc(rand(2, 1), 'x=diag(a); x(1) = 0;');
 %% 2. Accepted side effects
 
 no_side_effects_unc(rand(2, 2), 'x=a; x(1) = 1;', 'Accept', 'sideEffect');
-no_side_effects_unc(rand(4, 5, 6), 'x=LinProp(a); x(1) = 1;', 'Accept', 'sideEffect');
+no_side_effects_unc(rand(4, 5, 6), 'x=unc(a); x(1) = 1;', 'Accept', 'sideEffect');
 no_side_effects_unc(rand(4, 5, 6), 'x=[a]; x(1) = 1;', 'Accept', 'sideEffect');
