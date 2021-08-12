@@ -94,7 +94,7 @@ function no_side_effects_unc(varargin)
             if dims_initial ~= dims
                 type = 'failed';
                 result = 'sideEffect';
-                output_msg = sprintf('FAILED: %s changed from %i to %i dimensions. Size changed from %s to %s.\n', ...
+                output_msg = sprintf('FAILED: ''%s'' changed from %i to %i dimensions. Size changed from %s to %s.\n', ...
                     variableNames{ii}, dims_initial, dims, ...
                     strjoin(string(eval(['size(' variableNames{ii} ')'])), '-by-'), ...
                     strjoin(string(eval(['size(' variableNamesInitial{ii} ')'])), '-by-'));
@@ -110,7 +110,7 @@ function no_side_effects_unc(varargin)
                 if any(size_initial ~= sizeNew)
                     type = 'failed';
                     result = 'sideEffect';
-                    output_msg = sprintf('FAILED: %s changed size from %s to %s.\n', ...
+                    output_msg = sprintf('FAILED: ''%s'' changed size from %s to %s.\n', ...
                         variableNames{ii}, ...
                         strjoin(string(size_initial), '-by-'), ...
                         strjoin(string(sizeNew), '-by-'));
@@ -127,7 +127,7 @@ function no_side_effects_unc(varargin)
                 if any(values_initial(:) ~= values(:))
                     type = 'failed';
                     result = 'sideEffect';
-                    output_msg = sprintf('FAILED: %s changed values.\n', ...
+                    output_msg = sprintf('FAILED: ''%s'' changed values.\n', ...
                         variableNames{ii});
                     break;
                 end
@@ -142,7 +142,7 @@ function no_side_effects_unc(varargin)
                 if any(u_initial(:) ~= u(:))
                     type = 'failed';
                     result = 'sideEffect';
-                    output_msg = sprintf('FAILED: %s changed uncertainties.\n', ...
+                    output_msg = sprintf('FAILED: ''%s'' changed uncertainties.\n', ...
                         variableNames{ii});
                     break;
                 end
@@ -154,6 +154,16 @@ function no_side_effects_unc(varargin)
         type = 'passed';
         result = 'passed';
         output_msg = sprintf('PASSED: No side effects.\n');
+    end
+        
+    if strcmp(accept, 'sideEffect')
+        if strcmp(result, 'sideEffect')
+            type = 'accepted';
+            output_msg = strrep(output_msg ,'FAILED', 'ACCEPTED SIDE EFFECT');
+        else
+            type = 'warning';
+            output_msg = 'ATTENTION: No side effect detected, although one was accepted.\n';
+        end
     end
     
     log_test_result(type, result, output_msg, char(useUnc), 3);
