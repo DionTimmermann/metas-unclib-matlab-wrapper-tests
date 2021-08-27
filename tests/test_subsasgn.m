@@ -557,10 +557,11 @@ compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :, :, :, :) = b;'
 compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :, :) = b;');
 compare_a_dbl_unc([], rand(3, 3, 1, 3), 'clear a; a(5, 1:3, :, :) = b;');
 
-% Initialization with empty varaible.
+% Initialization with empty variable.
 compare_a_dbl_unc([], 'clear a; a(:) = [];');
 compare_a_dbl_unc([], 'clear a; a(:, :) = [];');
-%% 7. Bugs in 2.4.8
+%% 7. Known Bugs
+% Version 2.4.8
 
 compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a(:, 1) = b;');
 compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a(:, 1) = b(:);');
@@ -570,3 +571,6 @@ compare_a_dbl_unc(rand(3, 1, 1), rand(), 'reshape(a, [3 1 1]); a(1, 1, 1) = b;')
 
 % Different datatypes in the indexes cause an error (issue #12).
 compare_a_dbl_unc(rand(3, 3), rand(3, 1), 'a(:, uint32(1)) = b;');
+% Version 2.4.9
+
+compare_a_dbl_unc([], [], 'clear a; a([]) = b;');
