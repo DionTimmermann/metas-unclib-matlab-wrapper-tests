@@ -12,7 +12,8 @@ function log_test_result(type, result, output_msg, uncType, depth)
     end
     
     st = dbstack;
-    if length(st) > depth-1
+    depth = depth + 1;
+    if length(st) >= depth
 
         [currentPath,~,~] = fileparts(mfilename('fullpath'));
         testFileName = st(depth).file;

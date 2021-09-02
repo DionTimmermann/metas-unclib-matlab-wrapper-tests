@@ -172,7 +172,7 @@ function no_side_effects_unc(varargin)
         end
     end
     
-    log_test_result(type, result, output_msg, char(useUnc), 3);
+    log_test_result(type, result, output_msg, char(useUnc), 1);
     
     unc = oldUnc;
     
