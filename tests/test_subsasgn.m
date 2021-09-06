@@ -573,5 +573,13 @@ compare_a_dbl_unc(rand(3, 1, 1), rand(), 'reshape(a, [3 1 1]); a(1, 1, 1) = b;')
 compare_a_dbl_unc(rand(3, 3), rand(3, 1), 'a(:, uint32(1)) = b;');
 % Version 2.4.9
 
+compare_a_dbl_unc([], 0, 'a([]) = b;');
+compare_a_dbl_unc([], 0, 'a([], []) = b;');
+compare_a_dbl_unc([], rand(1, 1), 'a([]) = b;');
+compare_a_dbl_unc([], rand(1, 2), 'a([]) = b;');
+compare_a_dbl_unc([], rand(2, 1), 'a([]) = b;');
+compare_a_dbl_unc([], rand(2, 2), 'a([]) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'a([]) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'a([], []) = b;');
 compare_a_dbl_unc([], [], 'clear a; a([]) = b;');
 compare_a_dbl_unc(rand(1, 1, 10), 'a(3) = [];');
