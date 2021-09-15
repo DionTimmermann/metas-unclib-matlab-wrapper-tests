@@ -571,7 +571,28 @@ compare_a_dbl_unc(rand(3, 1, 1), rand(), 'reshape(a, [3 1 1]); a(1, 1, 1) = b;')
 
 % Different datatypes in the indexes cause an error (issue #12).
 compare_a_dbl_unc(rand(3, 3), rand(3, 1), 'a(:, uint32(1)) = b;');
+
+%% 
 % Version 2.4.9
+
+compare_a_dbl_unc([], 0, 'clear a; a([]) = b;');
+compare_a_dbl_unc([], 0, 'clear a; a([], []) = b;');
+compare_a_dbl_unc([], rand(1, 1), 'clear a; a([]) = b;');
+compare_a_dbl_unc([], rand(1, 2), 'clear a; a([]) = b;');
+compare_a_dbl_unc([], rand(2, 1), 'clear a; a([]) = b;');
+compare_a_dbl_unc([], rand(2, 2), 'clear a; a([]) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'clear a; a([]) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'clear a; a([], []) = b;');
+compare_a_dbl_unc([], 0, 'clear a; a([], 1) = b;');
+compare_a_dbl_unc([], 0, 'clear a; a([], [], 1) = b;');
+compare_a_dbl_unc([], 0, 'clear a; a([], 2, [], 1) = b;');
+compare_a_dbl_unc([], rand(1, 1), 'clear a; a([], 1) = b;');
+compare_a_dbl_unc([], rand(1, 2), 'clear a; a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 1), 'clear a; a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 2), 'clear a; a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'clear a; a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'clear a; a([], [], 1) = b;');
+compare_a_dbl_unc([], [], 'clear a; a([], 1) = b;');
 
 compare_a_dbl_unc([], 0, 'a([]) = b;');
 compare_a_dbl_unc([], 0, 'a([], []) = b;');
@@ -581,5 +602,50 @@ compare_a_dbl_unc([], rand(2, 1), 'a([]) = b;');
 compare_a_dbl_unc([], rand(2, 2), 'a([]) = b;');
 compare_a_dbl_unc([], rand(2, 2, 2), 'a([]) = b;');
 compare_a_dbl_unc([], rand(2, 2, 2), 'a([], []) = b;');
-compare_a_dbl_unc([], [], 'clear a; a([]) = b;');
+compare_a_dbl_unc([], 0, 'a([], 1) = b;');
+compare_a_dbl_unc([], 0, 'a([], [], 1) = b;');
+compare_a_dbl_unc([], 0, 'a([], 2, [], 1) = b;');
+compare_a_dbl_unc([], rand(1, 1), 'a([], 1) = b;');
+compare_a_dbl_unc([], rand(1, 2), 'a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 1), 'a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 2), 'a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'a([], 1) = b;');
+compare_a_dbl_unc([], rand(2, 2, 2), 'a([], [], 1) = b;');
+
+compare_a_dbl_unc(1, 0, 'a([]) = b;');
+compare_a_dbl_unc(1, 0, 'a([], []) = b;');
+compare_a_dbl_unc(1, rand(1, 1), 'a([]) = b;');
+compare_a_dbl_unc(1, rand(1, 2), 'a([]) = b;');
+compare_a_dbl_unc(1, rand(2, 1), 'a([]) = b;');
+compare_a_dbl_unc(1, rand(2, 2), 'a([]) = b;');
+compare_a_dbl_unc(1, rand(2, 2, 2), 'a([]) = b;');
+compare_a_dbl_unc(1, rand(2, 2, 2), 'a([], []) = b;');
+compare_a_dbl_unc(1, 0, 'a([], 1) = b;');
+compare_a_dbl_unc(1, 0, 'a([], [], 1) = b;');
+compare_a_dbl_unc(1, 0, 'a([], 2, [], 1) = b;');
+compare_a_dbl_unc(1, rand(1, 1), 'a([], 1) = b;');
+compare_a_dbl_unc(1, rand(1, 2), 'a([], 1) = b;');
+compare_a_dbl_unc(1, rand(2, 1), 'a([], 1) = b;');
+compare_a_dbl_unc(1, rand(2, 2), 'a([], 1) = b;');
+compare_a_dbl_unc(1, rand(2, 2, 2), 'a([], 1) = b;');
+compare_a_dbl_unc(1, rand(2, 2, 2), 'a([], [], 1) = b;');
+
+compare_a_dbl_unc(rand(2, 3), 0, 'a([]) = b;');
+compare_a_dbl_unc(rand(2, 3), 0, 'a([], []) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(1, 1), 'a([]) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(1, 2), 'a([]) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 1), 'a([]) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 2), 'a([]) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 2, 2), 'a([]) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 2, 2), 'a([], []) = b;');
+compare_a_dbl_unc(rand(2, 3), 0, 'a([], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), 0, 'a([], [], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), 0, 'a([], 2, [], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(1, 1), 'a([], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(1, 2), 'a([], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 1), 'a([], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 2), 'a([], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 2, 2), 'a([], 1) = b;');
+compare_a_dbl_unc(rand(2, 3), rand(2, 2, 2), 'a([], [], 1) = b;');
+
 compare_a_dbl_unc(rand(1, 1, 10), 'a(3) = [];');
