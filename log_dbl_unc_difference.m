@@ -18,7 +18,7 @@ function log_dbl_unc_difference(data, accept, uncType)
             result_msg = sprintf('different sizes. Expected %s, but got %s.', ...
             strjoin(string(size(data.dbl_result)), '-by-'), ...
             strjoin(string(size(data.unc_result)), '-by-'));
-        elseif any(data.dbl_result ~= double(data.unc_result))
+        elseif ~isequaln(data.dbl_result, double(data.unc_result))
             result = 'differentResults';
             result_msg = sprintf('different results.');
         else
