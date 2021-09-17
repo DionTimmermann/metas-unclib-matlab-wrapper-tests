@@ -24,7 +24,6 @@ if verLessThan('matlab', '9.9') % The exact version number is just a guess.
 else
     accept = [];
 end
-
 %% 0. Introduction
 %% 0.1. Simple Tests
 % These tests should not fail
@@ -228,8 +227,15 @@ compare_ans_dbl_unc(rand(2, 3, 4), 'a([], [], [], [])');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], [])');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], [], [])');
 compare_ans_dbl_unc(rand(2, 3, 4), 'a([], :, [], :, [])');
-
-%% 8. Bugs in 2.4.8
+%% 8. Bugs in Different Versions
+% Version 2.4.8
 
 compare_ans_dbl_unc(rand(), 'a(1, 1)');
 compare_ans_dbl_unc(rand(), 'a(1, 1, 1)');
+% Verson 2.4.9
+
+compare_ans_dbl_unc(rand(1, 10), 'a(a ~= 0)');
+compare_ans_dbl_unc(rand(10, 1), 'a(a ~= 0)');
+compare_ans_dbl_unc(rand(1, 1, 10), 'a(a ~= 0)');
+compare_ans_dbl_unc(rand(1, 1, 1, 10), 'a(a ~= 0)');
+compare_ans_dbl_unc(rand(1, 2, 10), 'a(a ~= 0)');
