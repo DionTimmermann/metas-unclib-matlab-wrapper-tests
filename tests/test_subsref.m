@@ -99,6 +99,8 @@ compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a(1, :, :, 1, 1)');
 % Vectors
 
 compare_ans_dbl_unc(rand(5, 1), 'a([])');
+compare_ans_dbl_unc(rand(5, 4), 'a([])');
+compare_ans_dbl_unc(rand(1, 4), 'a([])');
 %% 
 % 2D Matricies
 
@@ -138,7 +140,7 @@ compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [], [])');
 compare_ans_dbl_unc(rand(4, 5, 6, 7, 8), 'a([], [], :)');
 %% 3. Addressing more dimensions than exist
 
-compare_ans_dbl_unc([], 'a(4)', 'Accept', accept);
+compare_ans_dbl_unc([], 'a(4)', 'Accept', 'differentErrors');
 compare_ans_dbl_unc([], 'a(:)');
 compare_ans_dbl_unc(rand(), 'a(1, :)');
 compare_ans_dbl_unc(rand(), 'a(1, 1)');
@@ -239,3 +241,9 @@ compare_ans_dbl_unc(rand(10, 1), 'a(a ~= 0)');
 compare_ans_dbl_unc(rand(1, 1, 10), 'a(a ~= 0)');
 compare_ans_dbl_unc(rand(1, 1, 1, 10), 'a(a ~= 0)');
 compare_ans_dbl_unc(rand(1, 2, 10), 'a(a ~= 0)');
+
+compare_ans_dbl_unc(rand(1, 10), 'a(reshape(a ~= 0, [], 1))');
+compare_ans_dbl_unc(rand(10, 1), 'a(reshape(a ~= 0, [], 1))');
+compare_ans_dbl_unc(rand(1, 1, 10), 'a(reshape(a ~= 0, [], 1))');
+compare_ans_dbl_unc(rand(1, 1, 1, 10), 'a(reshape(a ~= 0, [], 1))');
+compare_ans_dbl_unc(rand(1, 2, 10), 'a(reshape(a ~= 0, [], 1))');
