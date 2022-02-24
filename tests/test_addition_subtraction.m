@@ -11,3 +11,22 @@ unc = @LinProp;
 
 compare_ans_dbl_unc([], [], 'a=reshape(a, 1, 0); a+b;');
 compare_ans_dbl_unc([], [], 'a=reshape(a, 1, 0); a-b;');
+
+%%
+compare_ans_dbl_unc(rand(1,1), rand(1,1), 'a+b;');
+compare_ans_dbl_unc(rand(1,3), rand(3,1), 'a+b;');
+compare_ans_dbl_unc(rand(3,1), rand(1,3), 'a+b;');
+compare_ans_dbl_unc(rand(3,3), rand(3,3), 'a+b;');
+%%
+compare_ans_dbl_unc(rand(1,1), rand(1,1), 'a-b;');
+compare_ans_dbl_unc(rand(1,3), rand(3,1), 'a-b;');
+compare_ans_dbl_unc(rand(3,1), rand(1,3), 'a-b;');
+compare_ans_dbl_unc(rand(3,3), rand(3,3), 'a-b;');
+%%
+compare_ans_dbl_unc(rand(1,3), rand(4,1), 'a+b;');
+compare_ans_dbl_unc(rand(3,1), rand(1,4), 'a+b;');
+compare_ans_dbl_unc(rand(3,3), rand(4,4), 'a+b;');
+%%
+compare_ans_dbl_unc(rand(1,3), rand(4,1), 'a-b;');
+compare_ans_dbl_unc(rand(3,1), rand(1,4), 'a-b;');
+compare_ans_dbl_unc(rand(3,3), rand(4,4), 'a-b;');
