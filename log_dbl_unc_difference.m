@@ -18,12 +18,15 @@ function log_dbl_unc_difference(data, accept, uncType)
             result_msg = sprintf('different sizes. Expected %s, but got %s.', ...
             strjoin(string(size(data.dbl_result)), '-by-'), ...
             strjoin(string(size(data.unc_result)), '-by-'));
-        elseif ~isequaln(data.dbl_result, double(data.unc_result))
-            result = 'differentResults';
-            result_msg = sprintf('different results.');
-        else
+        elseif isequaln(data.dbl_result, double(data.unc_result))
             result = 'passed';
             result_msg = sprintf('same result.');
+        elseif all(abs(data.dbl_result(:) - double(data.unc_result(:))) < 1e-16)
+            result = 'passed';
+            result_msg = sprintf('simmilar result (difference < 1e-16).');
+        else
+            result = 'differentResults';
+            result_msg = sprintf('different results.');
         end
         
     elseif ~isempty(data.dbl_error) && ~isempty(data.unc_error)
