@@ -1,13 +1,13 @@
 %% Unit Tests of multiplication for uncLib
-% This script tests the behavior of the multiplication, which determines the 
-% number of dimensions of a variables. The scipt compares the output and error 
-% messages of size on double and unc variables. It uses the function
-
+% This script tests the behavior of the multiplication. The scipt compares
+% the output and error messages of size on double and unc variables. It
+% uses the function
+%
 %compare_a_dbl_unc(a, b, 'code');
-%% 
-% where the first two parameters define the values of the variables a and and 
+%
+% where the first two parameters define the values of the variables a and 
 % b. The last parameter is code that is executed with after theses two variables 
-% have been defined. The function first casts a and b as doubles and exectes the 
+% have been defined. The function first casts a and b as doubles and executes the 
 % code. It then casts a and b as unc variables and executes the code again. The 
 % behavior (error messages and results) are compared.
 % 
