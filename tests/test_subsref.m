@@ -19,7 +19,7 @@ global unc;
 unc = @LinProp;
 
 % Flag to account for some error messages becomming more specific over time. 
-if verLessThan('matlab', '9.7') % Could possibly be as low as 9.5
+if verLessThan('matlab', '9.5') % Error messages changed in 2018b
     accept = 'differentErrors';
 else
     accept = [];

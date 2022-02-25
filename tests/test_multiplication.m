@@ -34,7 +34,8 @@ compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a.*b;');
 
 % Vector/Vector Multiplication (Incorrect number of elements)
 
-if verLessThan('matlab', '9.9') % Some error messages were changed. The exact version number is just a guess.
+% Flag to account for some error messages becomming more specific over time. 
+if verLessThan('matlab', '9.10') % Error messages changed in 2021a
     accept = 'differentErrors';
 else
     accept = [];

@@ -15,59 +15,66 @@
 % the testing.
 
 global unc;
-unc = @LinProp;
+global automatedUnc;
+global automatedTestScript;
+unc = @DistProp;
 %% 1. ./ division (rdivide)
 % 1.1. Division of a Scalar and a Vector
 
+% DistProp has numerical differences of up to 1e-13. We accept these.
+callStack = dbstack;
+if (strcmp(callStack(end).name, automatedTestScript) && strcmp(char(automatedUnc), 'DistProp')) || ...
+   (~strcmp(callStack(end).name, automatedTestScript) && strcmp(char(unc), 'DistProp'))
+    maxDifference = 1e-13;
+else
+    maxDifference = 0;
+end
+
 % Vector/Scalar Division
-compare_a_dbl_unc(rand(1), rand(1, 3), 'a=a./b;');
-compare_a_dbl_unc(rand(1, 3), rand(1), 'a=a./b;');
-compare_a_dbl_unc(rand(1), rand(3, 1), 'a=a./b;');
-compare_a_dbl_unc(rand(3, 1), rand(1), 'a=a./b;');
+compare_a_dbl_unc(rand(1), rand(1, 3), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(1, 3), rand(1), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(1), rand(3, 1), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(3, 1), rand(1), 'a=a./b;', 'MaxDifference', maxDifference);
 % 1.2. Division of a Vector and a Vector
 
 % Vector/Vector Division (Correct number of elements)
-compare_a_dbl_unc(rand(1, 3), rand(1, 3), 'a=a./b;');
-compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=a./b;');
-compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a./b;');
-compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a./b;');
+compare_a_dbl_unc(rand(1, 3), rand(1, 3), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a./b;', 'MaxDifference', maxDifference);
 
 % Vector/Vector Division (Incorrect number of elements)
 
-if verLessThan('matlab', '9.9') % Some error messages were changed. The exact version number is just a guess.
+% Flag to account for some error messages becomming more specific over time. 
+if verLessThan('matlab', '9.10') % Error messages changed in 2021a
     accept = 'differentErrors';
 else
     accept = [];
 end
 compare_a_dbl_unc(rand(1, 4), rand(1, 3), 'a=a./b;', 'Accept', accept);
-compare_a_dbl_unc(rand(1, 4), rand(3, 1), 'a=a./b;');
-compare_a_dbl_unc(rand(4, 1), rand(1, 3), 'a=a./b;');
+compare_a_dbl_unc(rand(1, 4), rand(3, 1), 'a=a./b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(4, 1), rand(1, 3), 'a=a./b;', 'MaxDifference', maxDifference);
 compare_a_dbl_unc(rand(4, 1), rand(3, 1), 'a=a./b;', 'Accept', accept);
 
 %% 2. .\ division (ldivide)
 % 2.1. Division of a Scalar and a Vector
 
 % Vector\Scalar Division
-compare_a_dbl_unc(rand(1), rand(1, 3), 'a=a.\b;');
-compare_a_dbl_unc(rand(1, 3), rand(1), 'a=a.\b;');
-compare_a_dbl_unc(rand(1), rand(3, 1), 'a=a.\b;');
-compare_a_dbl_unc(rand(3, 1), rand(1), 'a=a.\b;');
+compare_a_dbl_unc(rand(1), rand(1, 3), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(1, 3), rand(1), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(1), rand(3, 1), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(3, 1), rand(1), 'a=a.\b;', 'MaxDifference', maxDifference);
 % 2.2. Division of a Vector and a Vector
 
 % Vector\Vector Division (Correct number of elements)
-compare_a_dbl_unc(rand(1, 3), rand(1, 3), 'a=a.\b;');
-compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=a.\b;');
-compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a.\b;');
-compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a.\b;');
+compare_a_dbl_unc(rand(1, 3), rand(1, 3), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(1, 3), rand(3, 1), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(3, 1), rand(1, 3), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(3, 1), rand(3, 1), 'a=a.\b;', 'MaxDifference', maxDifference);
 
 % Vector\Vector Division (Incorrect number of elements)
 
-if verLessThan('matlab', '9.9') % Some error messages were changed. The exact version number is just a guess.
-    accept = 'differentErrors';
-else
-    accept = [];
-end
 compare_a_dbl_unc(rand(1, 4), rand(1, 3), 'a=a.\b;', 'Accept', accept);
-compare_a_dbl_unc(rand(1, 4), rand(3, 1), 'a=a.\b;');
-compare_a_dbl_unc(rand(4, 1), rand(1, 3), 'a=a.\b;');
+compare_a_dbl_unc(rand(1, 4), rand(3, 1), 'a=a.\b;', 'MaxDifference', maxDifference);
+compare_a_dbl_unc(rand(4, 1), rand(1, 3), 'a=a.\b;', 'MaxDifference', maxDifference);
 compare_a_dbl_unc(rand(4, 1), rand(3, 1), 'a=a.\b;', 'Accept', accept);
