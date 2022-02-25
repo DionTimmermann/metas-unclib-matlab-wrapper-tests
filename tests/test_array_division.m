@@ -22,6 +22,10 @@ unc = @DistProp;
 % 1.1. Division of a Scalar and a Vector
 
 % DistProp has numerical differences of up to 1e-13. We accept these.
+% The C# implementation of Divide for DistProp is a*b^(-1). This is due the
+% chain rule is only implemented for Add and Multiply. On the other hand
+% for the C# implementation of Divide for LinProp and MCProp is a/b.
+% see: https://github.com/wollmich/metas-unclib-matlab-wrapper/pull/43#issuecomment-1050654425
 callStack = dbstack;
 if (strcmp(callStack(end).name, automatedTestScript) && strcmp(char(automatedUnc), 'DistProp')) || ...
    (~strcmp(callStack(end).name, automatedTestScript) && strcmp(char(unc), 'DistProp'))
