@@ -11,6 +11,7 @@ function log_test_result(type, result, output_msg, uncType, depth)
         isAutomatedTest = false;
     end
     
+    testFilePath = [];
     st = dbstack;
     depth = depth + 1;
     if length(st) >= depth
@@ -34,7 +35,7 @@ function log_test_result(type, result, output_msg, uncType, depth)
     end
     
     if ~isAutomatedTest || any(strcmp(type, automatedOutput))
-        if ~strcmp(type, 'passed')
+        if ~strcmp(type, 'passed') && ~isempty(testFilePath)
             fprintf(fid, '\nIn <a href="matlab:opentoline(''%s'',%i, 1)">%s</a> (<a href="matlab:opentoline(''%s'',%i, 1)">line %i</a>)\n', testFilePath, testFileLine, testFilePath, testFileName, testFileLine, testFileLine);
             fprintf(fid, '> %s\n', testFileCode);
         end

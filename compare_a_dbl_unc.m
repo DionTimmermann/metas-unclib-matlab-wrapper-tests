@@ -1,9 +1,9 @@
-function compare_a_dbl_unc(varargin)
-%   compare_a_dbl_unc(a, command, ['Accept', errorType])                or 
-%   compare_a_dbl_unc(a, b, command, ['Accept', errorType])             or 
-%   compare_a_dbl_unc(a, b, c, command, ['Accept', errorType])          or 
-%   compare_a_dbl_unc(a, b, c, d, command, ['Accept', errorType])       or 
-%   compare_a_dbl_unc(a, b, c, d, e, command, ['Accept', errorType])
+function data = compare_a_dbl_unc(varargin)
+%   data = compare_a_dbl_unc(a, command, [Options])                or 
+%   data = compare_a_dbl_unc(a, b, command, [Options])             or 
+%   data = compare_a_dbl_unc(a, b, c, command, [Options])          or 
+%   data = compare_a_dbl_unc(a, b, c, d, command, [Options])       or 
+%   data = compare_a_dbl_unc(a, b, c, d, e, command, [Options])
 %   
 %   Compares `a` after executing `command` when using double variables
 %   and unc variables from the uncLib by METAS. The first 1 to 5 arguments 
@@ -11,6 +11,9 @@ function compare_a_dbl_unc(varargin)
 %   to double/unc before executing command. 
 %   The type of unc variable used (LinProp, DistProp, MCProp) is set
 %   through the global(!) variable unc.
+%
+%   The returned struct 'data' contains the results and error objects for
+%   unc and double.
 %
 %   Example:
 %       global unc;
@@ -40,6 +43,8 @@ function compare_a_dbl_unc(varargin)
 %   before its values are passed to `compare_a_dbl_unc`, both the double
 %   and the unc variable will have the same value.
 %
+%   The last input arguments can be pairs of parameters and values.
+%
 %   If the optinal parameter 'Accept' is passed, a specific type of error
 %   can be marked as accepted. Possible error types are
 %       differentDimensions     results have different ndims()
@@ -50,13 +55,12 @@ function compare_a_dbl_unc(varargin)
 %       doubleError             only double throws an error
 %       uncError                only unc throws an error
 %
-%   See also: compare_ans_dbl_unc
-% 
-%   2021-05-31  dion.timmermann@ptb.de
-%               * Initial Version
-%   2021-06-03  michael.wollensack@metas.ch
-%               * Different dimensions exception added
+%   If the optional parameter 'MaxDifference' is passed, the test will be
+%   marked as 'accepted difference', if abs(double_a - double(unc_a)) is
+%   less than or equal to the specified value.
 %
+%   See also: compare_ans_dbl_unc
+
 
     global unc;
     global automatedUnc;
@@ -70,9 +74,16 @@ function compare_a_dbl_unc(varargin)
     end
     
     accept = [];
-    if ischar(varargin{end-1}) && strcmp(varargin{end-1}, 'Accept')
-        accept = varargin{end};
-        varargin(end-1:end) = [];
+    maxDifference = 0;
+    for ii = 1:2
+        if ischar(varargin{end-1}) && strcmp(varargin{end-1}, 'Accept')
+            accept = varargin{end};
+            varargin(end-1:end) = [];
+        end
+        if ischar(varargin{end-1}) && strcmp(varargin{end-1}, 'MaxDifference')
+            maxDifference = varargin{end};
+            varargin(end-1:end) = [];
+        end
     end
     
     if numel(varargin)  < 2
@@ -114,6 +125,6 @@ function compare_a_dbl_unc(varargin)
     end
     
     
-    log_dbl_unc_difference(data, accept, useUnc);
+    log_dbl_unc_difference(data, accept, useUnc, maxDifference);
     
 end
