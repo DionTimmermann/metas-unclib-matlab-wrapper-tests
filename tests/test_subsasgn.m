@@ -650,3 +650,31 @@ compare_a_dbl_unc(rand(2, 3), rand(2, 2, 2), 'a([], 1) = b;');
 compare_a_dbl_unc(rand(2, 3), rand(2, 2, 2), 'a([], [], 1) = b;');
 
 compare_a_dbl_unc(rand(1, 1, 10), 'a(3) = [];');
+
+%%
+% Version 2.5.3
+
+% In `A(:, :) = B` The ':" refers to the size of B, if A has not been
+% defined. In uncLib 2.5.3 and prior, A was considered to not be defined
+% when it had 0 elements. The correct behaviour is that A is not defined
+% when all dimensions have a size of 0.
+compare_a_dbl_unc(rand(0, 1), rand(1, 2, 3), 'a(:, :) = b;', 'Accept', 'differentErrors');
+
+% Variants of the above that worked in 2.5.3 and prior.
+compare_a_dbl_unc([], rand(1, 2, 3), 'clear a; a(:, :) = b;');
+compare_a_dbl_unc(rand(0, 0), rand(1, 2, 3), 'a(:, :) = b;');
+
+% Size of a was incorrect when both the indices and b contained dimensions
+% with a size of 0.
+compare_a_dbl_unc([], rand(0, 1), 'a([]) = b;');
+compare_a_dbl_unc([], rand(0, 1), 'clear a; a([]) = b;');
+
+compare_a_dbl_unc(rand(0, 10), rand(0, 1, 0), 'a(1, []) = b;');
+
+compare_a_dbl_unc(rand(1, 0, 10), rand(0, 1, 0), 'a(1, []) = b;');
+compare_a_dbl_unc(rand(1, 0, 10), rand(0, 1, 0), 'a(1, [], :) = b;');
+
+compare_a_dbl_unc(rand(0, 1), rand(10, 0), 'a(1, [], 1) = b;');
+compare_a_dbl_unc(rand(0, 1), rand(0, 10), 'a(1, [], 1) = b;');
+compare_a_dbl_unc(rand(0, 1, 0), rand(0, 10), 'a(1, [], 1) = b;');
+compare_a_dbl_unc(rand(0, 1, 0), rand(1, 0, 10), 'a(1, [], 1) = b;');
