@@ -678,3 +678,6 @@ compare_a_dbl_unc(rand(0, 1), rand(10, 0), 'a(1, [], 1) = b;');
 compare_a_dbl_unc(rand(0, 1), rand(0, 10), 'a(1, [], 1) = b;');
 compare_a_dbl_unc(rand(0, 1, 0), rand(0, 10), 'a(1, [], 1) = b;');
 compare_a_dbl_unc(rand(0, 1, 0), rand(1, 0, 10), 'a(1, [], 1) = b;');
+
+compare_a_dbl_unc(rand(1, 1, 0), rand(1, 1, 4), 'a(1, 1, :) = b;');
+compare_a_dbl_unc(rand(2, 2, 0), rand(1, 1, 4), 'a(1, 1, :) = b;');
