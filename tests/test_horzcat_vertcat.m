@@ -40,5 +40,10 @@ compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), '[a;b;]');
 
 compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), '[a b; c d]');
 compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), '[a b c d; c d a b; b a c d; d a b c]');
-%% 
-%
+%% 8. Bugs in Different Versions
+% Version 2.5.3
+compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), '[double(a) b c]');
+compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), '[a double(b) c]');
+
+compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), '[double(a); b; c]');
+compare_ans_dbl_unc(rand(1, 1, 3), rand(1, 1, 3), rand(1, 1, 3), '[a; double(b); c]');
