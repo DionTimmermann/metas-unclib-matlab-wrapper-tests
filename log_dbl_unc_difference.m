@@ -3,6 +3,11 @@ function log_dbl_unc_difference(data, accept, uncType, maxDifference)
     result = [];
     result_msg = [];
     
+    global warningOnDifferentErrorMessages
+    if isempty(warningOnDifferentErrorMessages)
+        warningOnDifferentErrorMessages = false;
+    end
+    
     if isempty(data.dbl_error) && isempty(data.unc_error)
         % same error behavior. Test values
         
@@ -56,7 +61,7 @@ function log_dbl_unc_difference(data, accept, uncType, maxDifference)
     elseif strcmp(result, 'passed')
         type = 'passed';
         output_msg = sprintf('PASSED: %s\n', result_msg);
-    elseif strcmp(result, 'acceptedDifferentResults')
+    elseif strcmp(result, 'acceptedDifferentResults') || (strcmp(result, 'differentErrors') && ~warningOnDifferentErrorMessages)
         type = 'accepted';
         output_msg = sprintf('ACCEPTED DIFFERENCE: %s\n', result_msg);
     elseif strcmp(result, accept)

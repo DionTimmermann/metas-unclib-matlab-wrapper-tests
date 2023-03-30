@@ -39,6 +39,9 @@ global automatedUnc;
 global testReport;
 global automatedTestScript;
 global automatedOutput;
+global warningOnDifferentErrorMessages;
+
+warningOnDifferentErrorMessages = false;
 
 % automatedTestScript is used to detect in the testing functions, if they
 % are executed as part of an automated test. Simply setting a global
