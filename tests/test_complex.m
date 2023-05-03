@@ -20,6 +20,7 @@ compare_ans_dbl_unc(rand(1, 1), rand(1, 1), 'complex(a, double(b))');
 compare_ans_dbl_unc(rand(1, 1), 0, 'complex(a, b)');
 compare_ans_dbl_unc(rand(1, 3), rand(1, 1), 'complex(a, b)');
 compare_ans_dbl_unc(rand(1, 3), rand(1, 3), 'complex(a, b)');
+compare_ans_dbl_unc(rand(1, 3), rand(1, 3, 1), 'complex(a, b)');
 compare_ans_dbl_unc(rand(1, 3), rand(1, 2), 'complex(a, b)');
 compare_ans_dbl_unc(rand(1, 3), rand(3, 1), 'complex(a, b)');
 compare_ans_dbl_unc(rand(1, 3, 4), rand(1, 1, 1), 'complex(a, b)');
